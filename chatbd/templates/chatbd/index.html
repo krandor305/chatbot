@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+{%block content%}
+<p id="ici"></p>
+<form method="" id="myForm">{% csrf_token %}
+{{form.as_p}}
+<input type="submit" id="postBtn">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+        $(document).on('submit','#myForm',function(e){
+          e.preventDefault();
+          $.ajax({
+            type:'POST',
+            url:'/',
+            data:{
+              message:$("#id_message").val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success : function(){
+          $("#ici").append("<br>"+$("#id_message").val());
+          $("#ici").append("<br>"+"{{message}}");
+              }
+          })
+        })
+</script>
+{%endblock content%}
