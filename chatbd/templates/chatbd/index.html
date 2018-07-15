@@ -10,17 +10,18 @@
         $(document).on('submit','#myForm',function(e){
           e.preventDefault();
           $.ajax({
-            type:'POST',
-            url:'/',
+            type:'GET',
+            url:'/envoi',
             data:{
               message:$("#id_message").val(),
               csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },
-            success : function(){
+            success : function(response){
           $("#ici").append("<br>"+$("#id_message").val());
-          $("#ici").append("<br>"+"{{message}}");
+          $("#ici").append("<br>"+response);
               }
           })
+          return false;
         })
 </script>
 {%endblock content%}
